@@ -1,0 +1,475 @@
+/* =============================================
+   ScientiFX — Scientific Calculator Styles
+   Theme: Dark Industrial / Retro-Futuristic
+   ============================================= */
+
+:root {
+  --bg-primary: #0d0f14;
+  --bg-secondary: #141720;
+  --bg-card: #1a1e2a;
+  --bg-display: #0a0c10;
+
+  --accent-cyan: #00e5ff;
+  --accent-orange: #ff6d2e;
+  --accent-green: #39ff14;
+
+  --btn-num-bg: #1e2436;
+  --btn-num-hover: #252d42;
+  --btn-op-bg: #1a2535;
+  --btn-op-hover: #1f2e40;
+  --btn-sci-bg: #161c2a;
+  --btn-sci-hover: #1c2438;
+  --btn-fn-bg: #13181f;
+  --btn-clear-bg: #2d1a1a;
+  --btn-clear-hover: #3d2020;
+  --btn-equals-bg: var(--accent-orange);
+  --btn-equals-hover: #ff8050;
+  --btn-const-bg: #1a1a2d;
+
+  --text-primary: #e8eaf2;
+  --text-secondary: #8892a4;
+  --text-accent: var(--accent-cyan);
+  --text-display: #ffffff;
+
+  --border-color: #252d40;
+  --border-accent: var(--accent-cyan);
+  --glow-cyan: 0 0 12px rgba(0, 229, 255, 0.25);
+  --glow-orange: 0 0 12px rgba(255, 109, 46, 0.4);
+
+  --radius: 6px;
+  --font-display: 'Share Tech Mono', monospace;
+  --font-ui: 'Exo 2', sans-serif;
+
+  --transition: 0.12s ease;
+}
+
+/* Light Theme */
+body.light-theme {
+  --bg-primary: #eef1f7;
+  --bg-secondary: #e4e8f0;
+  --bg-card: #ffffff;
+  --bg-display: #dde2ec;
+  --btn-num-bg: #f0f2f8;
+  --btn-num-hover: #e4e8f4;
+  --btn-op-bg: #dce4f0;
+  --btn-op-hover: #cdd7ec;
+  --btn-sci-bg: #e8ecf6;
+  --btn-sci-hover: #dde4f4;
+  --btn-fn-bg: #e0e4ee;
+  --btn-clear-bg: #f5dada;
+  --btn-clear-hover: #ecc8c8;
+  --btn-const-bg: #dde0f0;
+  --text-primary: #1a1e2a;
+  --text-secondary: #5a6278;
+  --border-color: #c8d0e0;
+  --text-display: #0d0f14;
+}
+
+/* =============================================
+   Reset & Base
+   ============================================= */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--font-ui);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  transition: background 0.3s, color 0.3s;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 20% 50%, rgba(0,229,255,0.04) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 20%, rgba(255,109,46,0.04) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* =============================================
+   App Wrapper
+   ============================================= */
+.app-wrapper {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 760px;
+}
+
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 0;
+  margin-bottom: 1rem;
+}
+
+.logo {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  color: var(--text-secondary);
+  letter-spacing: 0.05em;
+}
+.logo span { color: var(--accent-cyan); }
+
+.header-controls { display: flex; gap: 0.5rem; }
+
+.icon-btn {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  width: 36px; height: 36px;
+  border-radius: var(--radius);
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all var(--transition);
+  display: flex; align-items: center; justify-content: center;
+}
+.icon-btn:hover {
+  color: var(--accent-cyan);
+  border-color: var(--accent-cyan);
+  box-shadow: var(--glow-cyan);
+}
+
+/* =============================================
+   Layout
+   ============================================= */
+.calculator-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  transition: grid-template-columns 0.3s ease;
+}
+
+.calculator-layout.show-history {
+  grid-template-columns: 220px 1fr;
+}
+
+/* =============================================
+   History Panel
+   ============================================= */
+.history-panel {
+  display: none;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  overflow: hidden;
+  flex-direction: column;
+}
+
+.calculator-layout.show-history .history-panel {
+  display: flex;
+}
+
+.history-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--border-color);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+.clear-btn {
+  background: none;
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: var(--font-ui);
+  font-size: 0.65rem;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+.clear-btn:hover { color: var(--accent-orange); border-color: var(--accent-orange); }
+
+.history-list {
+  list-style: none;
+  overflow-y: auto;
+  flex: 1;
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.history-empty {
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  text-align: center;
+  padding: 2rem 1rem;
+  font-style: italic;
+}
+
+.history-item {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  padding: 0.5rem 0.75rem;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+.history-item:hover { border-color: var(--accent-cyan); }
+
+.history-expr {
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+  font-family: var(--font-display);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.history-result {
+  font-size: 0.95rem;
+  color: var(--accent-cyan);
+  font-family: var(--font-display);
+  font-weight: bold;
+}
+
+/* =============================================
+   Calculator
+   ============================================= */
+.calculator {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+}
+
+/* =============================================
+   Display
+   ============================================= */
+.display {
+  background: var(--bg-display);
+  padding: 1.25rem 1.5rem 1rem;
+  min-height: 110px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-end;
+  position: relative;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.display::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent-cyan), transparent);
+  opacity: 0.5;
+}
+
+.display-mode {
+  position: absolute;
+  top: 0.75rem;
+  left: 1rem;
+  font-family: var(--font-display);
+  font-size: 0.65rem;
+  color: var(--accent-cyan);
+  letter-spacing: 0.1em;
+  background: rgba(0,229,255,0.1);
+  border: 1px solid rgba(0,229,255,0.2);
+  padding: 2px 8px;
+  border-radius: 3px;
+}
+
+.display-expression {
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  min-height: 1.2em;
+  word-break: break-all;
+  text-align: right;
+  margin-bottom: 0.4rem;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.display-result {
+  font-family: var(--font-display);
+  font-size: 2.4rem;
+  color: var(--text-display);
+  line-height: 1;
+  transition: font-size 0.1s;
+  text-align: right;
+  word-break: break-all;
+}
+
+.display-result.small { font-size: 1.6rem; }
+.display-result.error { color: var(--accent-orange); font-size: 1rem; }
+
+/* =============================================
+   Keypad
+   ============================================= */
+.keypad {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 6px;
+  padding: 12px;
+}
+
+/* =============================================
+   Buttons
+   ============================================= */
+.btn {
+  font-family: var(--font-ui);
+  font-size: 0.85rem;
+  font-weight: 600;
+  height: 52px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: all var(--transition);
+  color: var(--text-primary);
+  letter-spacing: 0.02em;
+  user-select: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn:active { transform: scale(0.96); }
+
+.btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: white;
+  opacity: 0;
+  transition: opacity 0.1s;
+}
+.btn:active::after { opacity: 0.05; }
+
+/* Number buttons */
+.btn-num {
+  background: var(--btn-num-bg);
+  font-size: 1.1rem;
+}
+.btn-num:hover { background: var(--btn-num-hover); border-color: #3a4560; }
+
+.btn-zero { grid-column: span 2; }
+
+/* Operator buttons */
+.btn-op {
+  background: var(--btn-op-bg);
+  color: var(--accent-cyan);
+  border-color: rgba(0,229,255,0.1);
+}
+.btn-op:hover {
+  background: var(--btn-op-hover);
+  border-color: rgba(0,229,255,0.3);
+  box-shadow: var(--glow-cyan);
+}
+
+/* Scientific buttons */
+.btn-sci {
+  background: var(--btn-sci-bg);
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  font-family: var(--font-display);
+}
+.btn-sci:hover {
+  background: var(--btn-sci-hover);
+  color: var(--accent-cyan);
+  border-color: rgba(0,229,255,0.2);
+}
+
+/* Function buttons */
+.btn-fn {
+  background: var(--btn-fn-bg);
+  font-size: 0.72rem;
+  color: var(--text-secondary);
+  letter-spacing: 0.03em;
+}
+.btn-fn:hover { background: #1a2030; color: var(--text-primary); }
+
+/* Clear buttons */
+.btn-clear {
+  background: var(--btn-clear-bg);
+  color: #ff6b6b;
+  border-color: rgba(255, 107, 107, 0.1);
+}
+.btn-clear:hover {
+  background: var(--btn-clear-hover);
+  border-color: rgba(255, 107, 107, 0.3);
+}
+
+/* Constant buttons */
+.btn-const {
+  background: var(--btn-const-bg);
+  color: var(--accent-green);
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  border-color: rgba(57, 255, 20, 0.1);
+}
+.btn-const:hover {
+  border-color: rgba(57, 255, 20, 0.3);
+  box-shadow: 0 0 10px rgba(57, 255, 20, 0.15);
+}
+
+/* Bracket buttons */
+.btn-bracket {
+  background: var(--btn-fn-bg);
+  color: var(--text-secondary);
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+}
+.btn-bracket:hover { color: var(--text-primary); }
+
+/* Equals */
+.btn-equals {
+  background: var(--btn-equals-bg);
+  color: white;
+  font-size: 1.4rem;
+  border: none;
+  box-shadow: var(--glow-orange);
+}
+.btn-equals:hover {
+  background: var(--btn-equals-hover);
+  box-shadow: 0 0 20px rgba(255, 109, 46, 0.5);
+}
+
+/* =============================================
+   Ripple animation
+   ============================================= */
+@keyframes ripple {
+  to { transform: scale(4); opacity: 0; }
+}
+
+.ripple-effect {
+  position: absolute;
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.2);
+  transform: scale(0);
+  animation: ripple 0.4s linear;
+  pointer-events: none;
+}
+
+/* =============================================
+   Responsive
+   ============================================= */
+@media (max-width: 600px) {
+  .calculator-layout.show-history {
+    grid-template-columns: 1fr;
+  }
+  .history-panel { max-height: 180px; }
+  .display-result { font-size: 1.8rem; }
+  .btn { height: 44px; font-size: 0.78rem; }
+  .keypad { gap: 4px; padding: 8px; }
+}

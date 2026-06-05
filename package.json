@@ -1,0 +1,28 @@
+{
+  "name": "scientific-calculator",
+  "version": "1.0.0",
+  "description": "A fully-featured scientific calculator built with HTML, CSS, and JavaScript using math.js",
+  "main": "index.html",
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch"
+  },
+  "keywords": [
+    "calculator",
+    "scientific",
+    "javascript",
+    "math.js"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "jest": "^29.0.0",
+    "jest-environment-jsdom": "^29.0.0"
+  },
+  "jest": {
+    "testEnvironment": "jsdom",
+    "testMatch": [
+      "**/tests/**/*.test.js"
+    ]
+  }
+}

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ScientiFX — Scientific Calculator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Exo+2:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+
+  <div class="app-wrapper">
+    <header class="app-header">
+      <div class="logo">Scienti<span>FX</span></div>
+      <div class="header-controls">
+        <button id="themeToggle" class="icon-btn" title="Toggle theme">☀</button>
+        <button id="historyToggle" class="icon-btn" title="History">⏱</button>
+      </div>
+    </header>
+
+    <main class="calculator-layout">
+
+      <!-- History Panel -->
+      <aside class="history-panel" id="historyPanel">
+        <div class="history-header">
+          <span>History</span>
+          <button id="clearHistory" class="clear-btn">Clear</button>
+        </div>
+        <ul class="history-list" id="historyList">
+          <li class="history-empty">No calculations yet</li>
+        </ul>
+      </aside>
+
+      <!-- Calculator -->
+      <section class="calculator">
+
+        <!-- Display -->
+        <div class="display">
+          <div class="display-mode" id="angleMode">DEG</div>
+          <div class="display-expression" id="expression"></div>
+          <div class="display-result" id="result">0</div>
+        </div>
+
+        <!-- Keypad -->
+        <div class="keypad">
+
+          <!-- Row 1: Mode & Memory -->
+          <button class="btn btn-fn" data-action="toggleAngle">DEG/RAD</button>
+          <button class="btn btn-fn" data-action="toggleSign">+/−</button>
+          <button class="btn btn-fn" data-action="percent">%</button>
+          <button class="btn btn-clear" data-action="clear">AC</button>
+          <button class="btn btn-clear" data-action="backspace">⌫</button>
+
+          <!-- Row 2: Scientific -->
+          <button class="btn btn-sci" data-action="sin">sin</button>
+          <button class="btn btn-sci" data-action="cos">cos</button>
+          <button class="btn btn-sci" data-action="tan">tan</button>
+          <button class="btn btn-sci" data-action="log">log</button>
+          <button class="btn btn-sci" data-action="ln">ln</button>
+
+          <!-- Row 3: Scientific -->
+          <button class="btn btn-sci" data-action="sqrt">√</button>
+          <button class="btn btn-sci" data-action="square">x²</button>
+          <button class="btn btn-sci" data-action="pow">xⁿ</button>
+          <button class="btn btn-sci" data-action="factorial">n!</button>
+          <button class="btn btn-sci" data-action="inv">1/x</button>
+
+          <!-- Row 4: Constants & Brackets -->
+          <button class="btn btn-const" data-action="pi">π</button>
+          <button class="btn btn-const" data-action="e">e</button>
+          <button class="btn btn-bracket" data-action="openParen">(</button>
+          <button class="btn btn-bracket" data-action="closeParen">)</button>
+          <button class="btn btn-op" data-action="divide">÷</button>
+
+          <!-- Row 5 -->
+          <button class="btn btn-num" data-action="num" data-val="7">7</button>
+          <button class="btn btn-num" data-action="num" data-val="8">8</button>
+          <button class="btn btn-num" data-action="num" data-val="9">9</button>
+          <button class="btn btn-op" data-action="multiply">×</button>
+          <button class="btn btn-op" data-action="mod">mod</button>
+
+          <!-- Row 6 -->
+          <button class="btn btn-num" data-action="num" data-val="4">4</button>
+          <button class="btn btn-num" data-action="num" data-val="5">5</button>
+          <button class="btn btn-num" data-action="num" data-val="6">6</button>
+          <button class="btn btn-op" data-action="subtract">−</button>
+          <button class="btn btn-op" data-action="abs">|x|</button>
+
+          <!-- Row 7 -->
+          <button class="btn btn-num" data-action="num" data-val="1">1</button>
+          <button class="btn btn-num" data-action="num" data-val="2">2</button>
+          <button class="btn btn-num" data-action="num" data-val="3">3</button>
+          <button class="btn btn-op" data-action="add">+</button>
+          <button class="btn btn-equals" data-action="equals" rowspan="2">=</button>
+
+          <!-- Row 8 -->
+          <button class="btn btn-num btn-zero" data-action="num" data-val="0">0</button>
+          <button class="btn btn-num" data-action="decimal">.</button>
+          <button class="btn btn-op" data-action="exp">EXP</button>
+
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/12.4.0/math.min.js"></script>
+  <script src="js/history.js"></script>
+  <script src="js/calculator.js"></script>
+  <script src="js/ui.js"></script>
+</body>
+</html>
